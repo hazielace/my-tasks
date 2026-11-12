@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#4945a4">
+    <title>my-tasks · Tu espacio de trabajo</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' rx='14' fill='%234945a4'/%3E%3Cpath d='m13 24 8 8 15-17' fill='none' stroke='white' stroke-width='4'/%3E%3C/svg%3E">
+    <link rel="stylesheet" href="/styles.css">
+    <script type="module" src="/src/app.js"></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="my-tasks, inicio"><span class="brand-icon" aria-hidden="true">✓</span>my-tasks<span class="brand-dot">.</span></a>
+      <span class="workspace-label">Mi espacio de trabajo</span>
+      <span class="local-badge"><span aria-hidden="true">●</span> Guardado en este navegador</span>
+    </header>
+
+    <main>
+      <section class="page-heading" aria-labelledby="page-title">
+        <div><h1 id="page-title">Tu equipo, en movimiento.</h1><p class="subtitle">Organiza lo pendiente y dale espacio a lo que sigue.</p></div>
+        <button class="button primary" id="new-task" type="button"><span aria-hidden="true">＋</span> Nueva tarea</button>
+      </section>
+
+      <section class="summary" aria-label="Resumen de todas las tareas">
+        <article class="stat"><span class="stat-icon" aria-hidden="true">▦</span><div><p>Total de tareas</p><strong id="total-count">0</strong></div><span class="stat-note">Todo en un lugar</span></article>
+        <article class="stat"><span class="stat-icon amber" aria-hidden="true">◷</span><div><p>En progreso</p><strong id="doing-count">0</strong></div><span class="stat-note">Paso a paso</span></article>
+        <article class="stat"><span class="stat-icon green" aria-hidden="true">✓</span><div><p>Completadas</p><strong id="done-count">0</strong></div><span class="stat-note">¡Buen trabajo!</span></article>
+        <article class="stat progress-stat"><div><p>Progreso general</p><strong id="progress-percentage">0 %</strong></div><p class="progress-note">Tareas completadas del total.</p></article>
+      </section>
+
+      <section class="board-section" aria-labelledby="board-title">
+        <div class="board-heading"><div><h2 id="board-title">Tablero de tareas</h2><p>Una idea, un paso, una tarea a la vez.</p></div><span class="board-format" aria-hidden="true">▥ &nbsp; Vista de tablero</span></div>
+        <div class="toolbar">
+          <div class="search-wrap"><span aria-hidden="true">⌕</span><label class="sr-only" for="search">Buscar por título o descripción</label><input type="search" id="search" placeholder="Buscar tareas…" autocomplete="off"></div>
+          <div class="filter-wrap"><label for="status-filter">Estado</label><select id="status-filter"><option value="all">Todos los estados</option><option value="todo">Por hacer</option><option value="doing">En progreso</option><option value="done">Completadas</option></select></div>
+        </div>
+        <p id="storage-notice" class="notice" role="alert" hidden></p>
+        <p id="results" class="results" role="status" aria-live="polite"></p>
+        <div class="board">
+          <section class="column todo" aria-labelledby="todo-title"><header class="column-heading"><h3 id="todo-title"><span class="status-dot"></span>Por hacer <span class="column-count" id="todo-count">0</span></h3><span class="column-symbol" aria-hidden="true">○</span></header><div class="task-list" id="todo-list"></div></section>
+          <section class="column doing" aria-labelledby="doing-title"><header class="column-heading"><h3 id="doing-title"><span class="status-dot"></span>En progreso <span class="column-count" id="doing-column-count">0</span></h3><span class="column-symbol" aria-hidden="true">◷</span></header><div class="task-list" id="doing-list"></div></section>
+          <section class="column done" aria-labelledby="done-title"><header class="column-heading"><h3 id="done-title"><span class="status-dot"></span>Completadas <span class="column-count" id="done-column-count">0</span></h3><span class="column-symbol" aria-hidden="true">✓</span></header><div class="task-list" id="done-list"></div></section>
+        </div>
+      </section>
+      <footer class="page-footer"><span>Hecho para avanzar, a tu ritmo.</span><span>Sin cuentas. Sin complicaciones.</span></footer>
+    </main>
+
+    <dialog id="task-dialog" aria-labelledby="dialog-title">
+      <form id="task-form">
+        <div class="dialog-heading"><div><h2 id="dialog-title">Nueva tarea</h2></div><button class="close-button" id="close-dialog" type="button" aria-label="Cerrar formulario">×</button></div>
+        <p class="dialog-description">Añade un título y los detalles que necesite tu equipo.</p>
+        <label for="task-title">Título <span class="required">(obligatorio)</span></label><input id="task-title" name="title" required maxlength="120" placeholder="¿Qué necesitas hacer?" autofocus>
+        <label for="task-description">Descripción <span class="required">(opcional)</span></label><textarea id="task-description" name="description" maxlength="500" rows="3" placeholder="Añade un poco de contexto…"></textarea>
+        <div class="form-row"><div><label for="task-tag">Etiqueta</label><select id="task-tag" name="tag"><option>General</option><option>Diseño</option><option>Desarrollo</option><option>Contenido</option><option>Equipo</option></select></div><div><label for="task-priority">Prioridad</label><select id="task-priority" name="priority"><option value="low">Baja</option><option value="medium" selected>Media</option><option value="high">Alta</option></select></div></div>
+        <p class="form-note">Se añadirá a la columna «Por hacer».</p>
+        <div class="dialog-actions"><button class="button secondary" type="button" id="cancel-dialog">Cancelar</button><button class="button primary" type="submit">Crear tarea</button></div>
+      </form>
+    </dialog>
+    <div id="announcement" class="sr-only" role="status" aria-live="polite"></div>
+  </body>
+</html>
